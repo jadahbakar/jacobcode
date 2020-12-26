@@ -10,17 +10,17 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jadahbakar/jacobcode/handler"
 )
 
 func main() {
-	// fmt.Println("hello")
 	log.Println("Starting Server...")
 	router := gin.Default()
-	router.GET("/api/account", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"hello": "Dedy Styawan - Golang",
-		})
+
+	handler.NewHandler(&handler.Config{
+		R: router,
 	})
+
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: router,
