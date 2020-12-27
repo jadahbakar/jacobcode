@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jadahbakar/jacobcode/model"
+	"github.com/jadahbakar/jacobcode/model/apperrors"
 )
 
 // Me handler calls services for getting
