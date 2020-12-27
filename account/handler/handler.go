@@ -5,23 +5,28 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jadahbakar/jacobcode/model"
 )
 
 // Handler struct holds required services for handler to function
 type Handler struct {
+	UserService model.UserService
 }
 
 // Config will hold services that will eventually be injected into this
 // handler layer on handler initialization
 type Config struct {
-	R *gin.Engine
+	R           *gin.Engine
+	UserService model.UserService
 }
 
 // NewHandler initializes the handler with required injected services along with http routes
 // Does not return as it deals directly with a reference to the gin Engine
 func NewHandler(c *Config) {
 	// Create a handler (which will later have injected services)
-	h := &Handler{} // currently has no properties
+	h := &Handler{
+		UserService: c.UserService,
+	} // currently has no properties
 
 	// Create an account group
 	// g := c.R.Group("/api/account")
@@ -36,12 +41,6 @@ func NewHandler(c *Config) {
 	g.DELETE("/image", h.DeleteImage)
 	g.PUT("/details", h.Details)
 
-}
-
-func (h *Handler) Me(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"hello": "it's Me Dedy",
-	})
 }
 
 // Signup handler
