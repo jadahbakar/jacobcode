@@ -3,7 +3,7 @@ package mocks
 import (
 	"context"
 
-	"github.com/gofrs/uuid"
+	"github.com/google/uuid"
 	"github.com/jadahbakar/jacobcode/model"
 	"github.com/stretchr/testify/mock"
 )
