@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jadahbakar/jacobcode/handler"
+	"github.com/jadahbakar/jacobcode/account/handler"
 )
 
 func main() {

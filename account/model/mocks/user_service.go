@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/jadahbakar/jacobcode/model"
+	"github.com/jadahbakar/jacobcode/account/model"
 	"github.com/stretchr/testify/mock"
 )
 

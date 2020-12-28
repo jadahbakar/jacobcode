@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jadahbakar/jacobcode/model"
+	"github.com/jadahbakar/jacobcode/account/model"
 )
 
 // Handler struct holds required services for handler to function

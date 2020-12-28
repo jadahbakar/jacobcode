@@ -1,4 +1,4 @@
-module github.com/jadahbakar/jacobcode
+module github.com/jadahbakar/jacobcode/account
 
 go 1.15
 
@@ -20,3 +20,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )
+      
