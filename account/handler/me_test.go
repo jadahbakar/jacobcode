@@ -9,9 +9,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/jadahbakar/jacobcode/model"
-	"github.com/jadahbakar/jacobcode/model/apperrors"
-	"github.com/jadahbakar/jacobcode/model/mocks"
+	"github.com/jadahbakar/jacobcode/account/model"
+	"github.com/jadahbakar/jacobcode/account/model/apperrors"
+	"github.com/jadahbakar/jacobcode/account/model/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
