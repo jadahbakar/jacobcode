@@ -2,6 +2,7 @@ package handler
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jadahbakar/jacobcode/account/model"
@@ -43,7 +44,7 @@ func (h *Handler) Signup(c *gin.Context) {
 	}
 
 	// create token pair as strings
-	// tokens, err := h.TokenService.NewPairFromUser(ctx, u, "")
+	tokens, err := h.TokenService.NewPairFromUser(ctx, u, "")
 
 	if err != nil {
 		log.Printf("Failed to create tokens for user: %v\n", err.Error())
@@ -58,7 +59,7 @@ func (h *Handler) Signup(c *gin.Context) {
 		return
 	}
 
-	// c.JSON(http.StatusCreated, gin.H{
-	// 	"tokens": tokens,
-	// })
+	c.JSON(http.StatusCreated, gin.H{
+		"tokens": tokens,
+	})
 }

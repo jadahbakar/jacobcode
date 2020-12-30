@@ -2,6 +2,7 @@ package model
 
 import (
 	"context"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -17,4 +18,17 @@ type UserService interface {
 // any repository it interacts with to implement
 type UserRepository interface {
 	FindByID(ctx context.Context, uid uuid.UUID) (*User, error)
+}
+
+// TokenService defines methods the handler layer expects to interact
+// with in regards to producing JWTs as string
+type TokenService interface {
+	NewPairFromUser(ctx context.Context, u *User, prevTokenID string) (*TokenPair, error)
+}
+
+// TokenRepository defines methods it expects a repository
+// it interacts with to implement
+type TokenRepository interface {
+	SetRefreshToken(ctx context.Context, userID string, tokenID string, expiresIn time.Duration) error
+	DeleteRefreshToken(ctx context.Context, userID string, prevTokenID string) error
 }
