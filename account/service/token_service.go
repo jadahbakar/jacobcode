@@ -64,19 +64,6 @@ func (s *tokenService) NewPairFromUser(ctx context.Context, u *model.User, prevT
 		return nil, apperrors.NewInternal()
 	}
 
-	// set freshly minted refresh token to valid list
-	if err := s.TokenRepository.SetRefreshToken(ctx, u.UID.String(), refreshToken.ID, refreshToken.ExpiresIn); err != nil {
-		log.Printf("Error storing tokenID for uid: %v. Error: %v\n", u.UID, err.Error())
-		return nil, apperrors.NewInternal()
-	}
-
-	// delete user's current refresh token (used when refreshing idToken)
-	if prevTokenID != "" {
-		if err := s.TokenRepository.DeleteRefreshToken(ctx, u.UID.String(), prevTokenID); err != nil {
-			log.Printf("Could not delete previous refreshToken for uid: %v, tokenID: %v\n", u.UID.String(), prevTokenID)
-		}
-	}
-
 	return &model.TokenPair{
 		IDToken:      idToken,
 		RefreshToken: refreshToken.SS,

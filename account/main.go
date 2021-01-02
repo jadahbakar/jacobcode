@@ -8,18 +8,27 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/gin-gonic/gin"
-	"github.com/jadahbakar/jacobcode/account/handler"
 )
 
 func main() {
 	log.Println("Starting Server...")
-	router := gin.Default()
+	// initialize data sources
+	ds, err := initDS()
 
-	handler.NewHandler(&handler.Config{
-		R: router,
-	})
+	if err != nil {
+		log.Fatalf("Unable to initialize data sources: %v\n", err)
+	}
+
+	// router := gin.Default()
+	router, err := inject(ds)
+
+	if err != nil {
+		log.Fatalf("Failure to inject data sources: %v\n", err)
+	}
+
+	// handler.NewHandler(&handler.Config{
+	// 	R: router,
+	// })
 
 	srv := &http.Server{
 		Addr:    ":8080",
@@ -48,9 +57,9 @@ func main() {
 	defer cancel()
 
 	// shutdown data sources
-	// if err := ds.close(); err != nil {
-	// 	log.Fatalf("A problem occurred gracefully shutting down data sources: %v\n", err)
-	// }
+	if err := ds.close(); err != nil {
+		log.Fatalf("A problem occurred gracefully shutting down data sources: %v\n", err)
+	}
 
 	// Shutdown server
 	log.Println("Shutting down server...")

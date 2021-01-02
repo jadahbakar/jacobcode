@@ -58,8 +58,13 @@ func (h *Handler) Signup(c *gin.Context) {
 		})
 		return
 	}
+	log.Println(tokens)
 
 	c.JSON(http.StatusCreated, gin.H{
 		"tokens": tokens,
 	})
+
+	// c.JSON(http.StatusCreated, gin.H{
+	// 	"tokens": "tokens",
+	// })
 }

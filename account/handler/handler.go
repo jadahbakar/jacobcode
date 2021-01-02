@@ -20,6 +20,8 @@ type Config struct {
 	R            *gin.Engine
 	UserService  model.UserService
 	TokenService model.TokenService
+	// BaseURL         string
+	// TimeoutDuration time.Duration
 }
 
 // NewHandler initializes the handler with required injected services along with http routes
@@ -34,6 +36,7 @@ func NewHandler(c *Config) {
 	// Create an account group
 	// g := c.R.Group("/api/account")
 	g := c.R.Group(os.Getenv("ACCOUNT_API_URL"))
+	// log.Println(os.Getenv("ACCOUNT_API_URL"))
 
 	g.GET("/me", h.Me)
 	g.POST("/signup", h.Signup)
