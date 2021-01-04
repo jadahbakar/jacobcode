@@ -1,4 +1,4 @@
-.PHONY: keypair migrate-create migrate-up migrate-down migrate-force init
+.PHONY: keypair migrate-create migrate-up migrate-down migrate-force init docker-clean
 
 PWD = $(shell pwd)
 ACCTPATH = $(PWD)/account
@@ -25,6 +25,13 @@ migrate-down:
 migrate-force:
 	migrate -source file://$(PWD)/$(APPPATH)/accoun/migrations -database postgres://postgres:password@localhost:$(PORT)/postgres?sslmode=disable force $(VERSION)
 
+docker-clean:
+	@echo "---Stop docker---"
+	docker-compose stop
+	@echo "---Delete Docker Containers---"
+	docker rm $(docker ps -a -q)
+	@echo "---Delete Docker Images---"
+	docker rmi $(docker images -q)
 
 # create dev and test keys
 # run postgres containers in docker-compose 
