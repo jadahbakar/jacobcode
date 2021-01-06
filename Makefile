@@ -38,8 +38,8 @@ docker-rmi
 	docker rmi $(docker images -q)
 
 # create dev and test keys
-# run postgres containers in docker-compose 
-# migrate down 
+# run postgres containers in docker-compose
+# migrate down
 # migrate up
 # docker-compose dwon
 init: 
