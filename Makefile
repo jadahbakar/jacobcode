@@ -9,8 +9,8 @@ N = 1
 
 create-keypair:
 	@echo "Creating an rsa 256 key pair"
-	openssl genpkey -algorithm RSA -out $(ACCTPATH)/rsa_private_$(ENV).pem -pkeyopt rsa_keygen_bits:2048
-	openssl rsa -in $(ACCTPATH)/rsa_private_$(ENV).pem -pubout -out $(ACCTPATH)/rsa_public_$(ENV).pem
+	openssl genpkey -algorithm RSA -out ./$(ACCTPATH)/rsa_private_$(ENV).pem -pkeyopt rsa_keygen_bits:2048
+	openssl rsa -in ./$(ACCTPATH)/rsa_private_$(ENV).pem -pubout -out ./$(ACCTPATH)/rsa_public_$(ENV).pem
 
 migrate-create:
 	@echo "---Creating migration files---"
@@ -25,12 +25,16 @@ migrate-down:
 migrate-force:
 	migrate -source file://$(PWD)/$(APPPATH)/accoun/migrations -database postgres://postgres:password@localhost:$(PORT)/postgres?sslmode=disable force $(VERSION)
 
-docker-clean:
-	@echo "---Stop docker---"
+docker-stop:
+	@echo "--- Stopping docker ---"
 	docker-compose stop
-	@echo "---Delete Docker Containers---"
+
+docker-rm:
+	@echo "--- Delete containers ---"
 	docker rm $(docker ps -a -q)
-	@echo "---Delete Docker Images---"
+
+docker-rmi
+	@echo "--- Delete images ---"
 	docker rmi $(docker images -q)
 
 # create dev and test keys
