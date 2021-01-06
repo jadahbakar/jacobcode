@@ -8,19 +8,28 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// fmt.Println("hello")
 	log.Println("Starting Server...")
-	router := gin.Default()
-	router.GET("/api/account", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"hello": "Dedy Styawan - Golang",
-		})
-	})
+	// initialize data sources
+	ds, err := initDS()
+
+	if err != nil {
+		log.Fatalf("Unable to initialize data sources: %v\n", err)
+	}
+
+	// router := gin.Default()
+	router, err := inject(ds)
+
+	if err != nil {
+		log.Fatalf("Failure to inject data sources: %v\n", err)
+	}
+
+	// handler.NewHandler(&handler.Config{
+	// 	R: router,
+	// })
+
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: router,
@@ -48,9 +57,9 @@ func main() {
 	defer cancel()
 
 	// shutdown data sources
-	// if err := ds.close(); err != nil {
-	// 	log.Fatalf("A problem occurred gracefully shutting down data sources: %v\n", err)
-	// }
+	if err := ds.close(); err != nil {
+		log.Fatalf("A problem occurred gracefully shutting down data sources: %v\n", err)
+	}
 
 	// Shutdown server
 	log.Println("Shutting down server...")
