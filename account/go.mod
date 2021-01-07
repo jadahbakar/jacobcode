@@ -9,6 +9,7 @@ require (
 	github.com/go-redis/redis/v8 v8.4.4
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/google/uuid v1.1.2
+	github.com/jacobsngoodwin/memrizr/account v0.0.0-20210101173142-172479bf2fbb
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kr/pretty v0.1.0 // indirect

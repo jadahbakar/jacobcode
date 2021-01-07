@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jadahbakar/jacobcode/account/model"
@@ -20,7 +19,7 @@ type Config struct {
 	R            *gin.Engine
 	UserService  model.UserService
 	TokenService model.TokenService
-	// BaseURL         string
+	BaseURL      string
 	// TimeoutDuration time.Duration
 }
 
@@ -35,7 +34,8 @@ func NewHandler(c *Config) {
 
 	// Create an account group
 	// g := c.R.Group("/api/account")
-	g := c.R.Group(os.Getenv("ACCOUNT_API_URL"))
+	// g := c.R.Group(os.Getenv("ACCOUNT_API_URL"))
+	g := c.R.Group(c.BaseURL)
 	// log.Println(os.Getenv("ACCOUNT_API_URL"))
 
 	g.GET("/me", h.Me)

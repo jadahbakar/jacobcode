@@ -13,19 +13,19 @@ import (
 
 // PGUserRepository is data/repository implementation
 // of service layer UserRepository
-type pGUserRepository struct {
+type pgUserRepository struct {
 	DB *sqlx.DB
 }
 
 // NewUserRepository is a factory for initializing User Repositories
 func NewUserRepository(db *sqlx.DB) model.UserRepository {
-	return &pGUserRepository{
+	return &pgUserRepository{
 		DB: db,
 	}
 }
 
 // Create reaches out to database SQLX api
-func (r *pGUserRepository) Create(ctx context.Context, u *model.User) error {
+func (r *pgUserRepository) Create(ctx context.Context, u *model.User) error {
 	query := "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *"
 
 	if err := r.DB.GetContext(ctx, u, query, u.Email, u.Password); err != nil {
@@ -43,7 +43,7 @@ func (r *pGUserRepository) Create(ctx context.Context, u *model.User) error {
 
 // FindByID fetches user by id
 // FindByID(ctx context.Context, uid uuid.UUID) (*User, error)
-func (r *pGUserRepository) FindByID(ctx context.Context, uid uuid.UUID) (*model.User, error) {
+func (r *pgUserRepository) FindByID(ctx context.Context, uid uuid.UUID) (*model.User, error) {
 	user := &model.User{}
 
 	query := "SELECT * FROM users WHERE uid=$1"
